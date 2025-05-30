@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vieses Cognitivos na Prática</title>
+  <style>
+    /* RESET & BASE */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: 0.3s;
+    }
+    
+    body {
+      background: #121212;
+      color: #f1f1f1;
+      font-family: 'Segoe UI', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+    
+    a {
+      color: #00b4d8;
+      text-decoration: none;
+    }
+    
+    nav {
+      background: #1e1e1e;
+      padding: 15px;
+      border-bottom: 2px solid #00b4d8;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    
+    nav a {
+      margin: 0 15px;
+      font-weight: bold;
+      position: relative;
+      padding: 5px 0;
+    }
+    
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: #00b4d8;
+      transition: width 0.3s;
+    }
+    
+    nav a:hover::after {
+      width: 100%;
+    }
+    
+    h1, h2, h3 {
+      color: #00b4d8;
+      margin-bottom: 15px;
+    }
+    
+    button {
+      background: #00b4d8;
+      color: #121212;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: bold;
+      margin: 15px 0;
+    }
+    
+    button:hover {
+      background: #0077b6;
+      color: #fff;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 183, 216, 0.4);
+    }
+    
+    section {
+      position: relative;
+      overflow: hidden;
+      padding: 80px 20px;
+      min-height: 100vh;
+      transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
+    }
+    
+    /* Animação de entrada para seções */
+    section.animate-in {
+      animation: sectionFadeIn 1.2s ease-out forwards;
+    }
+    
+    @keyframes sectionFadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .particles-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+    
+    .section-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+    
+    .box {
+      background: rgba(30, 30, 30, 0.85);
+      padding: 25px;
+      border-radius: 15px;
+      flex: 1 1 300px;
+      min-width: 280px;
+      text-align: center;
+      cursor: pointer;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+    }
+    
+    .box:hover {
+      transform: scale(1.03);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+      border-color: rgba(0, 180, 216, 0.3);
+    }
+    
+    .emoji-img {
+      font-size: 5rem;
+      margin-bottom: 15px;
+      display: inline-block;
+    }
+    
+    /* SECTIONS */
+    .intro {
+      background: #111;
+      border-left: 8px solid #00b4d8;
+    }
+    
+    .pizzaria {
+      background: #1a1a1a;
+      border-left: 8px solid #f77f00;
+    }
+    
+    .celulares {
+      background: #1a1a1a;
+      border-left: 8px solid #90be6d;
+    }
+    
+    .noticias {
+      background: #1a1a1a;
+      border-left: 8px solid #e63946;
+    }
+    
+    .streaming {
+      background: #1a1a1a;
+      border-left: 8px solid #577590;
+    }
+    
+    .entrevista {
+      background: #1a1a1a;
+      border-left: 8px solid #f9c74f;
+    }
+    
+    .fusao {
+      background: #0d0d0d;
+      border-left: 8px solid #9d4edd;
+      min-height: 150vh;
+    }
+    
+    /* GRIDS */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+    
+    .phone-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+    
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+    
+    .plan-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+    
+    .movies-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+    
+    .candidate-grid {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 30px;
+    }
+    
+    /* ITEMS */
+    .menu-item, .phone-item, .news-item, .plan, .movie-item, .candidate {
+      background: rgba(40, 40, 40, 0.9);
+      padding: 20px;
+      border-radius: 10px;
+      transition: 0.3s;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .menu-item:hover, .phone-item:hover, .news-item:hover, .plan:hover, .movie-item:hover, .candidate:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .menu-item {
+      text-align: left;
+    }
+    
+    .phone-item {
+      text-align: center;
+      padding: 25px 15px;
+    }
+    
+    .news-item {
+      text-align: left;
+    }
+    
+    .headline {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #ff6b6b;
+      margin-bottom: 10px;
+    }
+    
+    .plan {
+      text-align: left;
+      padding: 25px;
+    }
+    
+    .plan h4 {
+      color: #00b4d8;
+      margin-bottom: 10px;
+    }
+    
+    .plan ul {
+      list-style-position: inside;
+      margin-top: 15px;
+    }
+    
+    .movie-item {
+      text-align: center;
+      padding: 15px;
+      font-size: 0.9rem;
+    }
+    
+    .candidate {
+      text-align: center;
+      padding: 20px;
+      flex: 1 1 200px;
+      max-width: 250px;
+    }
+    
+    .candidate img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+      border: 3px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .candidate img.focus-top {
+      object-position: top center;
+    }
+    
+    .testimonial {
+      background: rgba(50, 50, 50, 0.9);
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 15px;
+      font-style: italic;
+      text-align: left;
+      position: relative;
+    }
+    
+    .testimonial::before {
+      content: '"';
+      font-size: 3rem;
+      position: absolute;
+      opacity: 0.2;
+      top: -15px;
+      left: 5px;
+    }
+    
+    .stars {
+      color: #ffd700;
+      margin: 10px 0;
+    }
+    
+    .result {
+      background: #292929;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+      text-align: left;
+      max-height: 500px;
+      overflow: auto;
+      display: none;
+      border-left: 4px solid #00b4d8;
+    }
+    
+    .result p {
+      margin-bottom: 15px;
+    }
+    
+    .result strong {
+      color: #00b4d8;
+    }
+    
+    .price {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #90be6d;
+      margin: 10px 0;
+    }
+    
+    .old-price {
+      text-decoration: line-through;
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+    
+    .exclusive-tag {
+      background: #e63946;
+      color: white;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      display: inline-block;
+      margin-top: 5px;
+    }
+    
+    .popular-tag {
+      background: #f77f00;
+      color: white;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      display: inline-block;
+      margin-top: 5px;
+    }
+    
+    /* Botão de Fusão */
+    .fusion-button {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #9d4edd;
+      color: white;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      box-shadow: 0 4px 15px rgba(157, 78, 221, 0.5);
+      z-index: 99;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    .fusion-button:hover {
+      transform: scale(1.1) rotate(15deg);
+      box-shadow: 0 6px 20px rgba(157, 78, 221, 0.7);
+    }
+    
+    /* Animação de Fusão */
+    .fusion-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 999;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    
+    .fusion-animation.active {
+      display: flex;
+    }
+    
+    .fusion-element {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: white;
+      opacity: 0;
+    }
+    
+    .fusion-element.pizza {
+      background: rgba(247, 127, 0, 0.8);
+      top: 20%;
+      left: 20%;
+    }
+    
+    .fusion-element.phone {
+      background: rgba(144, 190, 109, 0.8);
+      top: 20%;
+      right: 20%;
+    }
+    
+    .fusion-element.news {
+      background: rgba(230, 57, 70, 0.8);
+      bottom: 20%;
+      left: 20%;
+    }
+    
+    .fusion-element.stream {
+      background: rgba(87, 117, 144, 0.8);
+      bottom: 20%;
+      right: 20%;
+    }
+    
+    .fusion-element.interview {
+      background: rgba(249, 199, 79, 0.8);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    
+    .fusion-progress {
+      width: 0%;
+      height: 6px;
+      background: linear-gradient(to right, #00b4d8, #9d4edd);
+      position: absolute;
+      bottom: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 3px;
+      max-width: 300px;
+    }
+    
+    .fusion-text {
+      position: absolute;
+      bottom: 25%;
+      color: white;
+      font-size: 1.2rem;
+      text-align: center;
+      opacity: 0;
+    }
+    
+    /* Seção de Fusão */
+    .fusion-site {
+      background: #0d0d0d;
+      padding: 30px;
+      border-radius: 15px;
+      margin-top: 30px;
+      border: 1px solid rgba(157, 78, 221, 0.3);
+    }
+    
+    .fusion-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .fusion-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .fusion-logo-icon {
+      font-size: 2rem;
+    }
+    
+    .fusion-nav {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .fusion-nav a {
+      color: #f1f1f1;
+      position: relative;
+    }
+    
+    .fusion-nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background-color: #9d4edd;
+      transition: width 0.3s;
+    }
+    
+    .fusion-nav a:hover {
+      color: #9d4edd;
+    }
+    
+    .fusion-nav a:hover::after {
+      width: 100%;
+    }
+    
+    .fusion-hero {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin: 40px 0;
+    }
+    
+    .fusion-hero-content {
+      flex: 1 1 500px;
+    }
+    
+    .fusion-hero-image {
+      flex: 1 1 400px;
+      background: rgba(40, 40, 40, 0.9);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 300px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .fusion-hero-image::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(157, 78, 221, 0.3), rgba(0, 180, 216, 0.3));
+      z-index: 1;
+    }
+    
+    .fusion-hero-emoji {
+      font-size: 8rem;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .fusion-cta {
+      background: linear-gradient(45deg, #9d4edd, #00b4d8);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: all 0.3s;
+    }
+    
+    .fusion-cta:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(157, 78, 221, 0.4);
+    }
+    
+    .fusion-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin: 50px 0;
+    }
+    
+    .fusion-feature {
+      background: rgba(30, 30, 30, 0.9);
+      padding: 25px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s;
+    }
+    
+    .fusion-feature:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+      border-color: rgba(157, 78, 221, 0.3);
+    }
+    
+    .fusion-feature-icon {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      display: inline-block;
+    }
+    
+    .fusion-testimonials {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin: 50px 0;
+    }
+    
+    .fusion-testimonial {
+      background: rgba(40, 40, 40, 0.9);
+      padding: 20px;
+      border-radius: 10px;
+      position: relative;
+      border-left: 4px solid #9d4edd;
+    }
+    
+    .fusion-testimonial::before {
+      content: '"';
+      font-size: 4rem;
+      position: absolute;
+      top: -20px;
+      left: 10px;
+      opacity: 0.2;
+      color: #9d4edd;
+    }
+    
+    .fusion-products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin: 50px 0;
+    }
+    
+    .fusion-product {
+      background: rgba(30, 30, 30, 0.9);
+      padding: 25px;
+      border-radius: 10px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    
+    .fusion-product:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+      border-color: rgba(157, 78, 221, 0.3);
+    }
+    
+    .fusion-product-tag {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #e63946;
+      color: white;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+    }
+    
+    .fusion-product-icon {
+      font-size: 4rem;
+      margin: 10px 0;
+    }
+    
+    .fusion-product-price {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #90be6d;
+      margin: 10px 0;
+    }
+    
+    .fusion-product-oldprice {
+      text-decoration: line-through;
+      color: #aaa;
+      font-size: 1rem;
+    }
+    
+    .fusion-timer {
+      background: rgba(230, 57, 70, 0.1);
+      padding: 15px;
+      border-radius: 8px;
+      margin: 30px 0;
+      text-align: center;
+      border: 1px solid rgba(230, 57, 70, 0.3);
+    }
+    
+    .fusion-timer-text {
+      color: #e63946;
+      font-weight: bold;
+    }
+    
+    .fusion-timer-countdown {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #e63946;
+      margin-top: 10px;
+    }
+    
+    .fusion-team {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 50px 0;
+    }
+    
+    .fusion-team-member {
+      flex: 1 1 200px;
+      max-width: 250px;
+      text-align: center;
+    }
+    
+    .fusion-team-member img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+      border: 3px solid rgba(157, 78, 221, 0.3);
+    }
+    
+    .fusion-footer {
+      margin-top: 50px;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+    }
+    
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav {
+        padding: 10px;
+      }
+      
+      nav a {
+        margin: 0 10px;
+        font-size: 0.9rem;
+      }
+      
+      .section-content {
+        gap: 20px;
+      }
+      
+      .box {
+        flex: 1 1 100%;
+      }
+      
+      .candidate-grid {
+        justify-content: center;
+      }
+      
+      .candidate {
+        flex: 1 1 100%;
+        max-width: 300px;
+      }
+      
+      .fusion-button {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+        bottom: 20px;
+        right: 20px;
+      }
+      
+      .fusion-header {
+        flex-direction: column;
+        gap: 20px;
+        align-items: flex-start;
+      }
+      
+      .fusion-nav {
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="#intro">Introdução</a>
+    <a href="#pizzaria">Prova Social</a>
+    <a href="#celulares">Ancoragem</a>
+    <a href="#noticias">Negatividade</a>
+    <a href="#streaming">Escassez</a>
+    <a href="#entrevista">Aparência</a>
+    <a href="#fusao" id="fusao-link" style="display: none;">Fusão</a>
+  </nav>
+  
+  <!-- Botão de Fusão -->
+  <div class="fusion-button" onclick="startFusion()">🔄</div>
+  
+  <!-- Animação de Fusão -->
+  <div class="fusion-animation" id="fusion-animation">
+    <div class="fusion-element pizza">🍕</div>
+    <div class="fusion-element phone">📱</div>
+    <div class="fusion-element news">📰</div>
+    <div class="fusion-element stream">🎬</div>
+    <div class="fusion-element interview">👔</div>
+    <div class="fusion-progress" id="fusion-progress"></div>
+    <div class="fusion-text" id="fusion-text">Fundindo vieses cognitivos...</div>
+  </div>
+  
+  <!-- INTRODUÇÃO -->
+  <section id="intro" class="intro">
+    <canvas class="particles-canvas" id="particles-intro"></canvas>
+    <div class="section-content">
+      <div class="box" style="flex: 1 1 100%">
+        <h1>Vieses Cognitivos na Prática</h1>
+        <p>Os vieses cognitivos são atalhos mentais que nosso cérebro utiliza para tomar decisões rápidas. Embora sejam úteis em muitas situações, eles também podem nos levar a erros de julgamento e decisões irracionais.</p>
+        <p>Este site demonstra como diferentes vieses cognitivos funcionam na prática, simulando situações reais onde eles ocorrem frequentemente.</p>
+        
+        <div style="margin-top: 30px; text-align: left;">
+          <h2>Vieses que você vai explorar:</h2>
+          
+          <p><strong>🍕 Viés da Prova Social</strong> - Tendemos a seguir o comportamento da maioria, mesmo quando não é a melhor escolha para nós. Veja como isso funciona em um cardápio de pizzaria.</p>
+          
+          <p><strong>📱 Viés de Ancoragem</strong> - Nossa percepção de valor é influenciada pelo primeiro número que vemos. Explore como isso afeta suas decisões de compra em uma loja de celulares.</p>
+          
+          <p><strong>📰 Viés da Negatividade</strong> - Damos mais peso a informações negativas do que positivas. Descubra como a mídia explora isso em um portal de notícias sensacionalista.</p>
+          
+          <p><strong>🎬 Viés da Escassez</strong> - Valorizamos mais o que parece ser limitado ou exclusivo. Veja como serviços de streaming usam isso para influenciar suas escolhas.</p>
+          
+          <p><strong>👔 Viés da Aparência</strong> - Julgamos a competência das pessoas com base em sua aparência. Observe como isso afeta processos de seleção em uma simulação de entrevista de emprego.</p>
+        </div>
+        
+        <p style="margin-top: 20px;">Cada seção simula um site real onde o viés ocorre. Clique nos botões "Revelar o Viés" para entender como eles funcionam e como você pode evitá-los.</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- PIZZARIA (VIÉS DA PROVA SOCIAL) -->
+  <section id="pizzaria" class="pizzaria">
+    <canvas class="particles-canvas" id="particles-pizza"></canvas>
+    <div class="section-content">
+      <div class="box" style="flex: 2">
+        <div class="emoji-img">🍕</div>
+        <h2>Pizza Mamma Mia</h2>
+        <p>Nosso cardápio traz os sabores mais pedidos e bem avaliados:</p>
+        
+        <div class="menu-grid">
+          <div class="menu-item">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div>🍅 <strong>Margherita Suprema</strong></div>
+              <div class="popular-tag">MAIS PEDIDA</div>
+            </div>
+            <div class="stars">★★★★★</div>
+            <small>Molho de tomate fresco, mussarela de búfala, manjericão orgânico.</small>
+            <div style="text-align: right; margin-top: 10px;"><strong>R$ 49,90</strong></div>
+          </div>
+          
+          <div class="menu-item">
+            <div>🌭 <strong>Calabresa Premium</strong></div>
+            <div class="stars">★★★★☆</div>
+            <small>Calabresa defumada, cebolas caramelizadas, orégano.</small>
+            <div style="text-align: right; margin-top: 10px;"><strong>R$ 45,90</strong></div>
+          </div>
+          
+          <div class="menu-item">
+            <div>🧀 <strong>4 Queijos Especial</strong></div>
+            <div class="stars">★★★★★</div>
+            <small>Gorgonzola, parmesão, provolone, mussarela, orégano.</small>
+            <div style="text-align: right; margin-top: 10px;"><strong>R$ 52,90</strong></div>
+          </div>
+          
+          <div class="menu-item">
+            <div>🥓 <strong>Portuguesa Tradicional</strong></div>
+            <div class="stars">★★★★☆</div>
+            <small>Presunto, ervilha, ovo, cebola, azeitonas, orégano.</small>
+            <div style="text-align: right; margin-top: 10px;"><strong>R$ 47,90</strong></div>
+          </div>
+        </div>
+        
+        <div class="testimonial">"A Margherita Suprema é simplesmente perfeita! Melhor pizza da cidade!" – João S.</div>
+        <div class="testimonial">"Todos os meus amigos pedem a Margherita, e com razão. Sabor incrível!" – Maria P.</div>
+        <div class="testimonial">"Nunca provei uma pizza tão boa quanto a Margherita daqui. Recomendo para todos!" – Ana L.</div>
+      </div>
+      
+      <div class="box">
+        <h3>🔍 Viés da Prova Social</h3>
+        <p>Observe como a pizza Margherita é destacada como "MAIS PEDIDA" e possui mais avaliações positivas.</p>
+        <button onclick="revealBias('provaResult')">Revelar o Viés</button>
+        <div id="provaResult" class="result"></div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- LOJA DE CELULARES (VIÉS DE ANCORAGEM) -->
+  <section id="celulares" class="celulares">
+    <canvas class="particles-canvas" id="particles-phone"></canvas>
+    <div class="section-content">
+      <div class="box" style="flex: 2">
+        <div class="emoji-img">📱</div>
+        <h2>TechZone Phones</h2>
+        <p>Os melhores smartphones com tecnologia de ponta:</p>
+        
+        <div class="phone-grid">
+          <div class="phone-item" style="border: 2px solid rgba(255, 215, 0, 0.3);">
+            <div style="font-size: 3rem;">📱</div>
+            <h3>UltraPhone Pro Max</h3>
+            <p><small>Processador Quantum, 512GB, 16GB RAM, Câmera 108MP</small></p>
+            <div class="price">R$ 12.999,00</div>
+            <div class="exclusive-tag">PREMIUM</div>
+          </div>
+          
+          <div class="phone-item">
+            <div style="font-size: 3rem;">📲</div>
+            <h3>TechPhone Pro</h3>
+            <p><small>Processador Avançado, 256GB, 12GB RAM, Câmera 64MP</small></p>
+            <div class="price">R$ 7.499,00</div>
+            <div class="old-price">R$ 8.999,00</div>
+          </div>
+          
+          <div class="phone-item">
+            <div style="font-size: 3rem;">📱</div>
+            <h3>SmartPhone Plus</h3>
+            <p><small>Processador Rápido, 128GB, 8GB RAM, Câmera 48MP</small></p>
+            <div class="price">R$ 4.299,00</div>
+            <div class="old-price">R$ 5.499,00</div>
+          </div>
+          
+          <div class="phone-item">
+            <div style="font-size: 3rem;">📲</div>
+            <h3>MobilePhone Lite</h3>
+            <p><small>Processador Eficiente, 64GB, 6GB RAM, Câmera 32MP</small></p>
+            <div class="price">R$ 2.499,00</div>
+            <div class="old-price">R$ 3.199,00</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="box">
+        <h3>💸 Viés de Ancoragem</h3>
+        <p>Note como o celular mais caro é apresentado primeiro, estabelecendo uma âncora de preço alto.</p>
+        <button onclick="revealBias('ancoraResult')">Revelar o Viés</button>
+        <div id="ancoraResult" class="result"></div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- PORTAL DE NOTÍCIAS (VIÉS DA NEGATIVIDADE) -->
+  <section id="noticias" class="noticias">
+    <canvas class="particles-canvas" id="particles-news"></canvas>
+    <div class="section-content">
+      <div class="box" style="flex: 2">
+        <div class="emoji-img">📰</div>
+        <h2>Daily Buzz News</h2>
+        <p>As notícias mais impactantes do momento:</p>
+        
+        <div class="news-grid">
+          <div class="news-item">
+            <div class="headline">🔥 ALERTA MÁXIMO: CRIME DISPARA NA CIDADE!</div>
+            <p>Violência cresce 300% em bairros nobres! Moradores em pânico com onda de assaltos!</p>
+          </div>
+          
+          <div class="news-item">
+            <div class="headline">⛈️ TEMPESTADE DEVASTADORA SE APROXIMA!</div>
+            <p>Meteorologistas preveem "pior tempestade da década" com ventos de até 120 km/h!</p>
+          </div>
+          
+          <div class="news-item">
+            <div class="headline">💰 CRISE ECONÔMICA SEM PRECEDENTES!</div>
+            <p>Inflação dispara e preços de alimentos podem triplicar nos próximos meses!</p>
+          </div>
+          
+          <div class="news-item">
+            <div class="headline">😷 NOVO VÍRUS LETAL AMEAÇA POPULAÇÃO!</div>
+            <p>Surto de doença misteriosa já infectou centenas e autoridades temem pandemia!</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="box">
+        <h3>📊 Viés da Negatividade</h3>
+        <p>Observe como as manchetes usam palavras alarmantes e exageram situações para atrair atenção.</p>
+        <button onclick="revealBias('negatividadeResult')">Revelar o Viés</button>
+        <div id="negatividadeResult" class="result"></div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- STREAMING (VIÉS DA ESCASSEZ) -->
+  <section id="streaming" class="streaming">
+    <canvas class="particles-canvas" id="particles-stream"></canvas>
+    <div class="section-content">
+      <div class="box" style="flex: 2">
+        <div class="emoji-img">🎬</div>
+        <h2>FlixStream</h2>
+        <p>Escolha o plano ideal para você:</p>
+        
+        <div class="plan-grid">
+          <div class="plan">
+            <h4>Básico</h4>
+            <div class="price">R$ 29,90/mês</div>
+            <ul>
+              <li>1 Tela simultânea</li>
+              <li>Qualidade HD</li>
+              <li>Catálogo limitado</li>
+            </ul>
+          </div>
+          
+          <div class="plan">
+            <h4>Padrão</h4>
+            <div class="price">R$ 49,90/mês</div>
+            <ul>
+              <li>2 Telas simultâneas</li>
+              <li>Qualidade Full HD</li>
+              <li>Catálogo completo</li>
+              <li>Áudio Dolby Digital</li>
+            </ul>
+          </div>
+          
+          <div class="plan" style="border: 2px solid rgba(255, 215, 0, 0.3);">
+            <h4>Premium <span class="exclusive-tag">EXCLUSIVO</span></h4>
+            <div class="price">R$ 69,90/mês</div>
+            <ul>
+              <li>4 Telas simultâneas</li>
+              <li>Qualidade 4K + HDR</li>
+              <li>Catálogo completo</li>
+              <li>Áudio Dolby Atmos</li>
+              <li>Pré-estreias exclusivas</li>
+              <li>Download ilimitado</li>
+            </ul>
+            <p style="margin-top: 10px; font-size: 0.8rem; color: #ff6b6b;">Apenas 3 dias para aproveitar esta oferta!</p>
+          </div>
+        </div>
+        
+        <h3 style="margin-top: 30px;">Conteúdos Exclusivos do Plano Premium:</h3>
+        <div class="movies-grid">
+          <div class="movie-item">
+            <div style="font-size: 2rem;">🍿</div>
+            <p>Stranger Things</p>
+            <small>Nova temporada</small>
+            <div class="exclusive-tag">EXCLUSIVO</div>
+          </div>
+          
+          <div class="movie-item">
+            <div style="font-size: 2rem;">🎥</div>
+            <p>O Gambito da Rainha</p>
+            <small>Episódio especial</small>
+            <div class="exclusive-tag">EXCLUSIVO</div>
+          </div>
+          
+          <div class="movie-item">
+            <div style="font-size: 2rem;">🎭</div>
+            <p>Bridgerton</p>
+            <small>Pré-estreia</small>
+            <div class="exclusive-tag">EXCLUSIVO</div>
+          </div>
+          
+          <div class="movie-item">
+            <div style="font-size: 2rem;">🔪</div>
+            <p>Bird Box</p>
+            <small>Continuação</small>
+            <div class="exclusive-tag">EXCLUSIVO</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="box">
+        <h3>⚖️ Viés da Escassez</h3>
+        <p>Note como o plano Premium é destacado com conteúdos "exclusivos" e uma oferta por tempo limitado.</p>
+        <button onclick="revealBias('escassezResult')">Revelar o Viés</button>
+        <div id="escassezResult" class="result"></div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- ENTREVISTA (VIÉS DA APARÊNCIA) -->
+  <section id="entrevista" class="entrevista">
+    <canvas class="particles-canvas" id="particles-interview"></canvas>
+    <div class="section-content">
+      <div class="box" style="flex: 2">
+        <h2>TalentMatch RH</h2>
+        <p>Candidatos para a vaga de Gerente de Projetos:</p>
+        
+        <div class="candidate-grid">
+          <div class="candidate">
+            <img src="https://i.imgur.com/ieH2Rjn.png" alt="Maria Silva">
+            <h4>Maria Silva</h4>
+            <p><small>10 anos de experiência em Marketing</small></p>
+            <p><small>MBA em Gestão de Negócios</small></p>
+            <p><small>Inglês fluente</small></p>
+          </div>
+          
+          <div class="candidate">
+            <img class="focus-top" src="https://i.imgur.com/ADnKMbH.jpeg" alt="João Souza">
+            <h4>João Souza</h4>
+            <p><small>Mestre em Ciência de Dados</small></p>
+            <p><small>8 anos em Análise de Projetos</small></p>
+            <p><small>Certificação PMP</small></p>
+          </div>
+          
+          <div class="candidate">
+            <img src="https://i.imgur.com/L3yQYXn.png" alt="Carlos Reyes">
+            <h4>Carlos Reyes</h4>
+            <p><small>Diretor de Operações</small></p>
+            <p><small>12 anos de experiência</small></p>
+            <p><small>Especialista em Liderança</small></p>
+          </div>
+        </div>
+        
+        <div style="margin-top: 20px; text-align: center;">
+          <p>Qual candidato você escolheria baseado apenas nestas informações?</p>
+        </div>
+      </div>
+      
+      <div class="box">
+        <h3>🔍 Viés da Aparência</h3>
+        <p>Observe como a aparência e vestimenta dos candidatos podem influenciar sua percepção sobre suas competências.</p>
+        <button onclick="revealBias('aparenciaResult')">Revelar o Viés</button>
+        <div id="aparenciaResult" class="result"></div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- SEÇÃO DE FUSÃO (TODOS OS VIESES) -->
+  <section id="fusao" class="fusao" style="display: none;">
+    <canvas class="particles-canvas" id="particles-fusion"></canvas>
+    <div class="section-content">
+      <div class="box" style="flex: 1 1 100%">
+        <h1>MindShop - A Experiência de Compra Definitiva</h1>
+        <p>Bem-vindo ao MindShop, onde a ciência comportamental encontra o e-commerce para criar a experiência de compra perfeita.</p>
+        
+        <div class="fusion-site">
+          <div class="fusion-header">
+            <div class="fusion-logo">
+              <div class="fusion-logo-icon">🧠</div>
+              <h2>MindShop</h2>
+            </div>
+            <div class="fusion-nav">
+              <a href="#produtos">Produtos</a>
+              <a href="#ofertas">Ofertas</a>
+              <a href="#depoimentos">Depoimentos</a>
+              <a href="#equipe">Nossa Equipe</a>
+              <a href="#contato">Contato</a>
+            </div>
+          </div>
+          
+          <div class="fusion-hero">
+            <div class="fusion-hero-content">
+              <h2>Descubra o Futuro das Compras Inteligentes</h2>
+              <p>Nossa plataforma revolucionária combina tecnologia de ponta com produtos exclusivos para transformar sua experiência de compra.</p>
+              <p>Junte-se aos milhares de clientes satisfeitos que já descobriram o MindShop.</p>
+              <button class="fusion-cta">COMPRE AGORA</button>
+              <p style="margin-top: 10px; font-size: 0.8rem; color: #ff6b6b;">Mais de 10.000 pessoas compraram nas últimas 24 horas!</p>
+            </div>
+            <div class="fusion-hero-image">
+              <div class="fusion-hero-emoji">🛍️</div>
+            </div>
+          </div>
+          
+          <div class="fusion-timer">
+            <div class="fusion-timer-text">OFERTA ESPECIAL DE LANÇAMENTO TERMINA EM:</div>
+            <div class="fusion-timer-countdown">23:59:42</div>
+          </div>
+          
+          <h2>Produtos em Destaque</h2>
+          <div class="fusion-products">
+            <div class="fusion-product">
+              <div class="fusion-product-tag">PREMIUM</div>
+              <div class="fusion-product-icon">📱</div>
+              <h3>UltraPhone X</h3>
+              <p>O smartphone mais avançado do mercado com tecnologia revolucionária.</p>
+              <div class="fusion-product-price">R$ 9.999,00</div>
+              <div class="fusion-product-oldprice">R$ 12.999,00</div>
+              <button class="fusion-cta" style="font-size: 0.9rem; padding: 10px 20px;">COMPRAR</button>
+            </div>
+            
+            <div class="fusion-product">
+              <div class="fusion-product-icon">💻</div>
+              <h3>PowerBook Pro</h3>
+              <p>Notebook ultrafino com processador de última geração.</p>
+              <div class="fusion-product-price">R$ 6.499,00</div>
+              <div class="fusion-product-oldprice">R$ 7.999,00</div>
+              <button class="fusion-cta" style="font-size: 0.9rem; padding: 10px 20px;">COMPRAR</button>
+            </div>
+            
+            <div class="fusion-product">
+              <div class="fusion-product-tag">MAIS VENDIDO</div>
+              <div class="fusion-product-icon">🎧</div>
+              <h3>SoundMax Pro</h3>
+              <p>Fones de ouvido com cancelamento de ruído e qualidade premium.</p>
+              <div class="fusion-product-price">R$ 899,00</div>
+              <div class="fusion-product-oldprice">R$ 1.299,00</div>
+              <button class="fusion-cta" style="font-size: 0.9rem; padding: 10px 20px;">COMPRAR</button>
+            </div>
+            
+            <div class="fusion-product">
+              <div class="fusion-product-tag">EXCLUSIVO</div>
+              <div class="fusion-product-icon">⌚</div>
+              <h3>SmartWatch Elite</h3>
+              <p>Relógio inteligente com monitoramento avançado de saúde.</p>
+              <div class="fusion-product-price">R$ 1.999,00</div>
+              <div class="fusion-product-oldprice">R$ 2.499,00</div>
+              <button class="fusion-cta" style="font-size: 0.9rem; padding: 10px 20px;">COMPRAR</button>
+            </div>
+          </div>
+          
+          <h2>Por que escolher o MindShop?</h2>
+          <div class="fusion-features">
+            <div class="fusion-feature">
+              <div class="fusion-feature-icon">🔒</div>
+              <h3>Segurança Garantida</h3>
+              <p>Seus dados e pagamentos estão protegidos com a mais avançada tecnologia de criptografia do mercado.</p>
+            </div>
+            
+            <div class="fusion-feature">
+              <div class="fusion-feature-icon">🚚</div>
+              <h3>Entrega Expressa</h3>
+              <p>Receba seus produtos em até 24 horas em qualquer lugar do país com nossa logística premium.</p>
+            </div>
+            
+            <div class="fusion-feature">
+              <div class="fusion-feature-icon">💯</div>
+              <h3>Garantia de Satisfação</h3>
+              <p>Se não estiver 100% satisfeito, devolvemos seu dinheiro em até 30 dias sem questionamentos.</p>
+            </div>
+          </div>
+          
+          <h2>O que nossos clientes dizem</h2>
+          <div class="fusion-testimonials">
+            <div class="fusion-testimonial">
+              <p>"Nunca vi uma loja online tão completa e com produtos de tanta qualidade. O UltraPhone X superou todas as minhas expectativas!"</p>
+              <p style="text-align: right; margin-top: 10px;"><strong>- João Silva</strong></p>
+              <div class="stars" style="text-align: right;">★★★★★</div>
+            </div>
+            
+            <div class="fusion-testimonial">
+              <p>"Comprei o SoundMax Pro porque vi que era o mais vendido, e realmente entendi o motivo. A qualidade do som é impressionante!"</p>
+              <p style="text-align: right; margin-top: 10px;"><strong>- Maria Oliveira</strong></p>
+              <div class="stars" style="text-align: right;">★★★★★</div>
+            </div>
+            
+            <div class="fusion-testimonial">
+              <p>"A entrega foi super rápida e o atendimento ao cliente é excepcional. Já recomendei para todos os meus amigos!"</p>
+              <p style="text-align: right; margin-top: 10px;"><strong>- Carlos Mendes</strong></p>
+              <div class="stars" style="text-align: right;">★★★★★</div>
+            </div>
+          </div>
+          
+          <h2>Nossa Equipe de Especialistas</h2>
+          <div class="fusion-team">
+            <div class="fusion-team-member">
+              <img src="https://i.imgur.com/L3yQYXn.png" alt="Ricardo Torres">
+              <h4>Ricardo Torres</h4>
+              <p><small>CEO & Fundador</small></p>
+            </div>
+            
+            <div class="fusion-team-member">
+              <img src="https://i.imgur.com/ieH2Rjn.png" alt="Ana Martins">
+              <h4>Ana Martins</h4>
+              <p><small>Diretora de Tecnologia</small></p>
+            </div>
+            
+            <div class="fusion-team-member">
+              <img class="focus-top" src="https://i.imgur.com/ADnKMbH.jpeg" alt="Pedro Alves">
+              <h4>Pedro Alves</h4>
+              <p><small>Gerente de Produtos</small></p>
+            </div>
+          </div>
+          
+          <div class="fusion-footer">
+            <p>© 2025 MindShop - Todos os direitos reservados</p>
+            <p style="margin-top: 10px; font-size: 0.8rem;">Este site é uma demonstração educacional sobre vieses cognitivos.</p>
+          </div>
+        </div>
+        
+        <div style="margin-top: 40px; text-align: left;">
+          <h2>Vieses Cognitivos em Ação</h2>
+          <p>Esta página demonstra como todos os vieses cognitivos podem ser combinados em um único site para influenciar decisões de compra:</p>
+          
+          <ul style="margin: 20px 0; list-style-position: inside;">
+            <li><strong>Viés da Prova Social:</strong> "Mais de 10.000 pessoas compraram", "MAIS VENDIDO", depoimentos positivos.</li>
+            <li><strong>Viés de Ancoragem:</strong> Produto mais caro (UltraPhone X) apresentado primeiro, preços riscados mais altos.</li>
+            <li><strong>Viés da Negatividade:</strong> Alertas de tempo limitado, contagem regressiva criando senso de urgência.</li>
+            <li><strong>Viés da Escassez:</strong> Tags "EXCLUSIVO", "oferta por tempo limitado", contagem regressiva.</li>
+            <li><strong>Viés da Aparência:</strong> Equipe apresentada com fotos profissionais, destacando aparência e vestimenta formal.</li>
+          </ul>
+          
+          <p>Ao reconhecer esses padrões, você pode tomar decisões mais conscientes e menos influenciadas por vieses cognitivos em suas compras online e na vida cotidiana.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <script>
+    // Função para revelar explicações dos vieses
+    function revealBias(id) {
+      const resultElements = document.querySelectorAll('.result');
+      resultElements.forEach(el => {
+        el.style.display = 'none';
+      });
+      
+      const element = document.getElementById(id);
+      element.style.display = 'block';
+      
+      // Conteúdo das explicações
+      const explanations = {
+        'provaResult': `<strong>Viés da Prova Social</strong>: Tendência a seguir o comportamento da maioria, mesmo quando não é necessariamente a melhor escolha para nós.
+          <p>1. <strong>O que é:</strong> É nossa tendência a considerar as ações e escolhas dos outros como indicadores do comportamento correto, especialmente em situações de incerteza.</p>
+          <p>2. <strong>Como se manifesta:</strong> No exemplo da pizzaria, a Margherita é destacada como "mais pedida" e tem mais depoimentos, levando você a acreditar que deve ser a melhor opção, mesmo sem ter experimentado outras.</p>
+          <p>3. <strong>Exemplos cotidianos:</strong> Escolher restaurantes lotados em vez de vazios, comprar produtos com mais avaliações positivas, ou adotar comportamentos porque "todo mundo está fazendo".</p>
+          <p>4. <strong>Impactos na decisão:</strong> Pode nos levar a ignorar nossas preferências pessoais, pagar mais por algo que não precisamos, ou deixar de experimentar alternativas que poderiam ser melhores para nós.</p>
+          <p>5. <strong>Como identificar:</strong> Questione-se: "Estou escolhendo isso porque realmente quero ou porque parece popular?" Observe se há destaque artificial para "mais vendido" ou "escolha popular".</p>
+          <p>6. <strong>Como evitar:</strong> Defina seus critérios pessoais antes de ver as opções, busque informações objetivas além das avaliações, e esteja disposto a experimentar opções menos populares que atendam melhor às suas necessidades.</p>`,
+        
+        'ancoraResult': `<strong>Viés de Ancoragem</strong>: Tendência a depender excessivamente da primeira informação oferecida (a "âncora") ao tomar decisões.
+          <p>1. <strong>O que é:</strong> É quando nossa avaliação é desproporcionalmente influenciada pelo primeiro valor ou informação que recebemos, mesmo quando esse valor é claramente irrelevante.</p>
+          <p>2. <strong>Como se manifesta:</strong> Na loja de celulares, o modelo ultra premium de R$ 12.999 é apresentado primeiro, fazendo com que os modelos de R$ 4.299 ou R$ 2.499 pareçam "baratos" em comparação, mesmo sendo valores significativos.</p>
+          <p>3. <strong>Exemplos cotidianos:</strong> Negociações salariais onde o primeiro valor mencionado define o tom, liquidações que mostram o "preço original" riscado, ou menus de restaurantes que colocam itens caros no topo.</p>
+          <p>4. <strong>Impactos na decisão:</strong> Pode nos levar a gastar mais do que planejávamos, aceitar ofertas que não são tão vantajosas, ou julgar valores com base em referências arbitrárias em vez de valor real.</p>
+          <p>5. <strong>Como identificar:</strong> Pergunte-se: "Qual seria minha avaliação se não tivesse visto o primeiro preço?" Observe se está comparando com o item mais caro em vez de avaliar o valor absoluto.</p>
+          <p>6. <strong>Como evitar:</strong> Estabeleça seu orçamento antes de ver as opções, pesquise preços médios de mercado independentemente, e avalie cada opção por seus próprios méritos, não em comparação com âncoras extremas.</p>`,
+        
+        'negatividadeResult': `<strong>Viés da Negatividade</strong>: Tendência a dar mais peso e atenção a experiências negativas do que positivas.
+          <p>1. <strong>O que é:</strong> É nossa predisposição a ser mais afetados por eventos negativos, notícias ruins e críticas do que por experiências positivas de intensidade equivalente.</p>
+          <p>2. <strong>Como se manifesta:</strong> No portal de notícias, manchetes alarmistas e sensacionalistas capturam nossa atenção imediatamente, usando palavras como "ALERTA MÁXIMO", "DEVASTADORA", "SEM PRECEDENTES" e "LETAL".</p>
+          <p>3. <strong>Exemplos cotidianos:</strong> Lembrar mais facilmente de críticas do que elogios, notícias negativas dominando telejornais, ou uma única experiência ruim com um produto ofuscando várias boas.</p>
+          <p>4. <strong>Impactos na decisão:</strong> Pode nos levar a uma visão distorcida da realidade, ansiedade desnecessária, evitar riscos benéficos, ou tomar decisões baseadas em medos exagerados.</p>
+          <p>5. <strong>Como identificar:</strong> Observe se está dando atenção desproporcional a informações negativas ou se sente ansiedade ao consumir notícias. Verifique se os títulos usam linguagem emocional exagerada.</p>
+          <p>6. <strong>Como evitar:</strong> Busque fontes de notícias equilibradas, verifique estatísticas reais por trás de manchetes alarmistas, pratique conscientemente dar igual atenção a aspectos positivos, e faça pausas regulares no consumo de notícias.</p>`,
+        
+        'escassezResult': `<strong>Viés da Escassez</strong>: Tendência a valorizar mais o que parece ser raro, exclusivo ou com disponibilidade limitada.
+          <p>1. <strong>O que é:</strong> É nossa propensão a atribuir maior valor a itens ou oportunidades que percebemos como escassos ou prestes a se tornarem indisponíveis.</p>
+          <p>2. <strong>Como se manifesta:</strong> No serviço de streaming, o plano Premium é destacado com tags de "EXCLUSIVO", conteúdos disponíveis apenas nesse plano, e um alerta de que a oferta expira em 3 dias.</p>
+          <p>3. <strong>Exemplos cotidianos:</strong> Promoções "por tempo limitado", produtos em "edição limitada", notificações de "poucas unidades restantes", ou frases como "seja um dos primeiros a ter".</p>
+          <p>4. <strong>Impactos na decisão:</strong> Pode nos levar a fazer compras impulsivas, pagar mais por algo que não precisamos urgentemente, ou escolher opções inferiores apenas porque parecem exclusivas.</p>
+          <p>5. <strong>Como identificar:</strong> Questione-se: "Eu ainda desejaria isso se estivesse sempre disponível?" Observe se está sendo pressionado por contagens regressivas ou alertas de estoque baixo.</p>
+          <p>6. <strong>Como evitar:</strong> Estabeleça um período de reflexão antes de decisões influenciadas por escassez, compare o valor real vs. percebido, e lembre-se que muitas "ofertas limitadas" são estratégias recorrentes de marketing.</p>`,
+        
+        'aparenciaResult': `<strong>Viés da Aparência (Efeito Halo)</strong>: Tendência a julgar a competência, caráter ou habilidades de uma pessoa com base em sua aparência física ou primeira impressão.
+          <p>1. <strong>O que é:</strong> É quando uma característica positiva (como boa aparência ou vestimenta formal) cria uma impressão geral positiva que se estende a outras características não relacionadas, como competência profissional.</p>
+          <p>2. <strong>Como se manifesta:</strong> Na seleção de candidatos, Carlos está vestido de forma mais elegante e formal, criando uma impressão de maior competência e liderança, mesmo que suas qualificações reais possam não ser superiores às dos outros candidatos.</p>
+          <p>3. <strong>Exemplos cotidianos:</strong> Preferir médicos de jaleco, confiar mais em pessoas atraentes, julgar professores pela aparência, ou associar roupas formais a maior competência profissional.</p>
+          <p>4. <strong>Impactos na decisão:</strong> Pode levar a contratações inadequadas, discriminação inconsciente, perda de talentos valiosos, ou confiança excessiva em pessoas que apenas "parecem" competentes.</p>
+          <p>5. <strong>Como identificar:</strong> Pergunte-se: "Estou avaliando esta pessoa por suas qualificações reais ou por como ela se apresenta?" Observe se está dando peso excessivo à aparência em detrimento de habilidades comprovadas.</p>
+          <p>6. <strong>Como evitar:</strong> Estabeleça critérios objetivos antes de avaliar candidatos, realize testes práticos de habilidades, use processos de seleção às cegas quando possível, e busque ativamente evidências que contradigam suas primeiras impressões.</p>`
+      };
+      
+      element.innerHTML = explanations[id];
+    }
+    
+    // Função para criar efeito de partículas
+    function createParticles(id, color) {
+      const canvas = document.getElementById(id);
+      if (!canvas) return;
+      
+      const ctx = canvas.getContext('2d');
+      let width, height;
+      let particles = [];
+      
+      function init() {
+        width = canvas.width = canvas.offsetWidth;
+        height = canvas.height = canvas.offsetHeight;
+        particles = [];
+        
+        for (let i = 0; i < 60; i++) {
+          particles.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            radius: Math.random() * 2 + 1,
+            density: Math.random() * 50,
+            color: color
+          });
+        }
+      }
+      
+      function draw() {
+        ctx.clearRect(0, 0, width, height);
+        
+        particles.forEach(particle => {
+          ctx.beginPath();
+          ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+          ctx.fillStyle = particle.color;
+          ctx.fill();
+        });
+        
+        update();
+      }
+      
+      let angle = 0;
+      
+      function update() {
+        angle += 0.01;
+        
+        particles.forEach(particle => {
+          particle.y += Math.cos(angle + particle.density) + 1 + particle.radius / 2;
+          particle.x += Math.sin(angle);
+          
+          if (particle.y > height || particle.x > width || particle.x < 0) {
+            particle.x = Math.random() * width;
+            particle.y = -10;
+          }
+        });
+      }
+      
+      function animate() {
+        draw();
+        requestAnimationFrame(animate);
+      }
+      
+      window.addEventListener('resize', init);
+      init();
+      animate();
+    }
+    
+    // Função para iniciar a animação de fusão
+    function startFusion() {
+      const fusionAnimation = document.getElementById('fusion-animation');
+      const fusionProgress = document.getElementById('fusion-progress');
+      const fusionText = document.getElementById('fusion-text');
+      const fusionSection = document.getElementById('fusao');
+      const fusionLink = document.getElementById('fusao-link');
+      
+      // Mostrar a animação
+      fusionAnimation.classList.add('active');
+      
+      // Animar os elementos
+      setTimeout(() => {
+        document.querySelector('.fusion-element.pizza').style.opacity = '1';
+        document.querySelector('.fusion-element.pizza').style.transform = 'scale(1.2)';
+      }, 500);
+      
+      setTimeout(() => {
+        document.querySelector('.fusion-element.phone').style.opacity = '1';
+        document.querySelector('.fusion-element.phone').style.transform = 'scale(1.2)';
+      }, 1000);
+      
+      setTimeout(() => {
+        document.querySelector('.fusion-element.news').style.opacity = '1';
+        document.querySelector('.fusion-element.news').style.transform = 'scale(1.2)';
+      }, 1500);
+      
+      setTimeout(() => {
+        document.querySelector('.fusion-element.stream').style.opacity = '1';
+        document.querySelector('.fusion-element.stream').style.transform = 'scale(1.2)';
+      }, 2000);
+      
+      setTimeout(() => {
+        document.querySelector('.fusion-element.interview').style.opacity = '1';
+        document.querySelector('.fusion-element.interview').style.transform = 'scale(1.2)';
+      }, 2500);
+      
+      // Mostrar texto e barra de progresso
+      setTimeout(() => {
+        fusionText.style.opacity = '1';
+        
+        // Animar a barra de progresso
+        let progress = 0;
+        const progressInterval = setInterval(() => {
+          progress += 1;
+          fusionProgress.style.width = `${progress}%`;
+          
+          if (progress >= 100) {
+            clearInterval(progressInterval);
+            
+            // Mover todos os elementos para o centro
+            const elements = document.querySelectorAll('.fusion-element');
+            elements.forEach(el => {
+              el.style.transition = 'all 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55)';
+              el.style.top = '50%';
+              el.style.left = '50%';
+              el.style.transform = 'translate(-50%, -50%) scale(0.8)';
+            });
+            
+            // Flash final e mostrar a seção de fusão
+            setTimeout(() => {
+              fusionAnimation.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+              
+              setTimeout(() => {
+                fusionAnimation.classList.remove('active');
+                fusionSection.style.display = 'block';
+                fusionLink.style.display = 'block';
+                
+                // Scroll para a seção de fusão
+                setTimeout(() => {
+                  document.getElementById('fusao').scrollIntoView({ behavior: 'smooth' });
+                  
+                  // Inicializar partículas na seção de fusão
+                  createParticles('particles-fusion', 'rgba(157, 78, 221, 0.5)');
+                }, 100);
+              }, 500);
+            }, 1000);
+          }
+        }, 30);
+      }, 3000);
+    }
+    
+    // Animação de entrada para seções ao scroll
+    function handleSectionAnimation() {
+      const sections = document.querySelectorAll('section');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-in');
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      sections.forEach(section => {
+        observer.observe(section);
+      });
+    }
+    
+    // Inicializar partículas para cada seção
+    document.addEventListener('DOMContentLoaded', function() {
+      createParticles('particles-intro', 'rgba(0, 180, 216, 0.5)');
+      createParticles('particles-pizza', 'rgba(247, 127, 0, 0.5)');
+      createParticles('particles-phone', 'rgba(144, 190, 109, 0.5)');
+      createParticles('particles-news', 'rgba(230, 57, 70, 0.5)');
+      createParticles('particles-stream', 'rgba(87, 117, 144, 0.5)');
+      createParticles('particles-interview', 'rgba(249, 199, 79, 0.5)');
+      
+      // Iniciar animações de seção
+      handleSectionAnimation();
+      
+      // Atualizar contador na seção de fusão
+      setInterval(() => {
+        const countdownElement = document.querySelector('.fusion-timer-countdown');
+        if (countdownElement) {
+          const time = countdownElement.textContent;
+          const [hours, minutes, seconds] = time.split(':').map(Number);
+          
+          let newSeconds = seconds - 1;
+          let newMinutes = minutes;
+          let newHours = hours;
+          
+          if (newSeconds < 0) {
+            newSeconds = 59;
+            newMinutes -= 1;
+          }
+          
+          if (newMinutes < 0) {
+            newMinutes = 59;
+            newHours -= 1;
+          }
+          
+          if (newHours < 0) {
+            newHours = 23;
+          }
+          
+          countdownElement.textContent = `${newHours.toString().padStart(2, '0')}:${newMinutes.toString().padStart(2, '0')}:${newSeconds.toString().padStart(2, '0')}`;
+        }
+      }, 1000);
+    });
+  </script>
+</body>
+</html>
